@@ -23,14 +23,14 @@
     <div class="intro" style="background-color: #27282c; color: white;">
         <nav class="navbar navbar-expand-lg" style="border-bottom-color: #ffffff;">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#" style="color: white; margin-left: 0px; font-size: 22px;">NKPL</a>
+              <a class="navbar-brand" href="#" style="color: white; margin-left: 0px; font-size: 24px;">NKPL</a>
               <div style="justify-content:right; display:flex;">
                 <div class="navbar-toggler" style="border: none; color: white;" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="material-symbols-outlined">
                         menu
                         </span>
                   </div>
-                  <div class="navbar-toggler" style="border: none; color: white;" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <div class="navbar-toggler" style="border: none; color: white;">
                     <span class="material-symbols-outlined">
                         search
                         </span>
@@ -39,24 +39,13 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#" style="color: #c5c5c5; font-size: 20px;">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                    <a class="nav-link" href="/docs/" style="color: #c5c5c5; font-size: 20px;">Documentations</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+                    <a class="nav-link" href="/editor/" style="color: #c5c5c5;font-size: 20px;">Online editor</a>
                   </li>
                 </ul>
               </div>
@@ -65,7 +54,7 @@
           <h1 style="font-size: 23px; margin-left:8px;">A programming language that always makes things easy</h1>
           <div class="button-group">
             <button class="namishButton">Get started</button>
-            <button class="namishButton2" style="margin-left: 20px;">Why NKPL</button>
+            <button class="namishButton2" style="margin-left: 20px;" onclick="location.href = '/#whynkpl'">Why NKPL</button>
           </div>
           <p class="text-50" style="margin-top: 20px; font-size: 20px;">Developed by <b>Namish Kumar</b></p>
           <div class="cont">
@@ -85,20 +74,57 @@
                 <h1 style="font-size: 25px; margin-left:8px; margin-top: 2.5px;">Runs on both web and your system</h1>
                 <p class="text-50-desp" style="margin-top: 10px;">One of the great advantages is that NKPL has the capability to run on both web and your system. When you type NKPL code in web, your code is sent to the server and the server compiles your code and returns the output.</b></p>
               </div>
+              <div class="features" id="biEnvironment">
+                <span class="material-symbols-outlined" style="font-size: 64px; margin-left: 3px;">
+                    language
+                    </span>
+                    <br>
+                <h1 style="font-size: 25px; margin-left:8px; margin-top: 2.5px;">Fast and effective</h1>
+                <p class="text-50-desp" style="margin-top: 10px;">Although NKPL is an interpreted language, it is quite fast and effective. It is an Object oriented programming language and is quite useful.</b></p>
+              </div>
           </div>
+          <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;">Full Form</h1>
+          <p class="text-50-desp" style="margin-top: 10px;">NKPL stands for <b>Namish Kumar Programming language. Its work first started in July 2022.</b></p>
           <br>
     </div>
     <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;">Try NKPL</h1>
     <p class="text-50" style="margin-top: 10px;">Given below is a sample NKPL code. Click on the Run button to run the code and see the output.</b></p>
     <div class="namishCode">
-    <p class="codeText"><span class="numbering">1.</span><span class="keyword"> write</span> <span class="string">"Hello World"</span></p>
+    <p class="codeText"><span class="numbering">1.</span><span class="keyword"> write</span> <span class="string">"Hello World"</span><span class="keyword">;</span></p>
     </div>
     <div class="button-group">
-        <button class="namishButton">Run the above code</button>
+        <button class="namishButton" id="runCode1">Run the above code</button>
         </div>
-        
+        <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;">Result:</h1>
+        <div class="namishCode" id="result1">
+          
+          </div>
+          <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;">Try Yourself!</h1>
+          <p class="text-50" style="margin-top: 10px;">If you don't trust the above one, then you can write your own NKPL code and see it's result below.</p>
+          <input class="codeEditor" id="codeEditor1" type="text" placeholder="Enter your NKPL Code.">
+          <div class="button-group">
+            <button class="namishButton" id="runCode2">Run the above code</button>
+            </div>
+            <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;">Result:</h1>
+            <div class="namishCode" id="result2">
+          
+            </div>
+            <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;" id="whynkpl">Why <i>NKPL?</i></h1>
+            <p class="text-50" style="margin-top: 10px;">NKPL is quite fast and efficient. It is developed with the help of two things:-</p>
+            <ul class="text-50">
+              <li>JavaScript</li>
+              <li>NodeJS</li>
+            </ul>
+            <p class="text-50" style="margin-top: 10px;">I would like to thank these two programming languages to help me create a programming languages that is going to help millions of people and developers.</p>
+            <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;" id="whynkpl">What to do now?</i></h1>
+            <div class="newNews">
+              <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;" id="whynkpl">Implement it in the right way</i></h1>
+              <p class="text-50" style="margin-top: 10px;">No matter whatever application you create, be it console application or server-side app, you have to implement it in the right way. For example how I used JS to create NKPL. So, Start by creating small applications with NKPL.</p>
+              <button class="namishButton" style="background-color: #000000;">Get started</button>
+            </div>
+            <br>
 <br>
-<br>
+<script src="runCodes.js?Ss=d" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>

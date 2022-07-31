@@ -53,7 +53,7 @@
           </nav>
           <h1 style="font-size: 23px; margin-left:8px;">A programming language that always makes things easy</h1>
           <div class="button-group">
-            <button class="namishButton">Get started</button>
+            <button class="namishButton" onclick="getStarted()">Get started</button>
             <button class="namishButton2" style="margin-left: 20px;" onclick="location.href = '/#whynkpl'">Why NKPL</button>
           </div>
           <p class="text-50" style="margin-top: 20px; font-size: 20px;">Developed by <b>Namish Kumar</b></p>
@@ -120,10 +120,15 @@
             <div class="newNews">
               <h1 style="font-size: 25px; margin-left:8px; margin-top: 10px;" id="whynkpl">Implement it in the right way</i></h1>
               <p class="text-50" style="margin-top: 10px;">No matter whatever application you create, be it a console application or a server-side app, you have to implement it in the right way. For example how I used JS to create NKPL. So, Start by creating small applications with NKPL.</p>
-              <button class="namishButtonSg" style="background-color: #000000;">Get started</button>
+              <button class="namishButtonSg" style="background-color: #000000;" onclick="getStarted()">Get started</button>
             </div>
             <br>
 <br>
+<script>
+  function getStarted() {
+    location.href = "/docs/";
+  }
+</script>
 <script src="runCodes.js?Ss=d" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>

@@ -20,17 +20,233 @@
     }
     </style>
 <body style="background-color: #27282c; color:white; height:100%">
+    <textarea class="codeEditor editor" id="mainCodeEditor">
+
+    </textarea>
         <div class="controlPanel" style="bottom:0;">
-            <div class="panelItem">
-                <span class="material-symbols-outlined" style="font-size: 48px;" data-bs-toggle="tooltip" data-bs-title="Run the code" title="Run the code" id="runTheCodeEditor">
+            <div class="panelItem" id="runTheCodeEditor">
+                <span class="material-symbols-outlined" style="font-size: 48px;" data-bs-toggle="tooltip" data-bs-title="Run the code" title="Run the code">
                     play_arrow
                     </span>
             </div>
         </div>
     </div>
+    <div class="modal" id="outputBox">
+        <div class="modal-content">
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2>NKPL Code Output:-</h2>
+            </div>
+            <div class="modal-body">
+              <div class="namishCode" id="editorOutput">
+                
+              </div>
+            </div>
+            <div class="modal-footer">
+              
+            </div>
+          </div>
+    </div>
+   
             <br>
 <br>
-<script src="/runCodes.js?Ss=d55555555555" type="module"></script>
+<script type="module">
+    import {WebArtino} from "https://cdn1.webartino.namishkumar.in/webartino.js";
+    class nkplCompiler {
+    constructor(codes, resultWriter) {
+      this.codes = codes
+      this.resultWriter = resultWriter;
+    }
+    tokenize() {
+      const length = this.codes.length
+      let pos = 0
+      let line = 1;
+      let column = 0;
+      let tokens = []
+      const BUILT_IN_KEYWORDS = ["write", "find", "vary", "import", "export", "modify", "Write", "Find", "Vary", "Import", "Export", "Modify", "showNkplDetails()", "sqrt", "Sqrt", "cbrt", "Cbrt", "printS", "PrintS", "#", "for", "For", "equals", "getVar", "getVary", ";", "function", "{", "}"];
+      const varChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_()#N;{}'
+      while (pos < length) {
+        let currentChar = this.codes[pos]
+        if (currentChar === " ") {
+          pos++
+          column++
+          continue
+        }else if(currentChar === "\n"){
+            line++
+            column = 0;
+            pos++
+            continue
+        } else if (currentChar === '"') {
+          let res = ""
+          pos++
+          column++
+          while (this.codes[pos] !== '"' && this.codes[pos] !== '\n' && pos < length) {
+            res += this.codes[pos]
+            pos++
+          }
+          if (this.codes[pos] !== '"') {
+            return {
+              error: `Incomplete String at line ${line}:${pos}`
+            }
+          }
+          pos++
+          tokens.push({
+            type: "string",
+            value: res
+          })
+        } else if (currentChar === "'") {
+          let res = ""
+          pos++
+          while (this.codes[pos] !== '"' && this.codes[pos] !== '\n' && pos < length) {
+            res += this.codes[pos]
+            pos++
+          }
+          if (this.codes[pos] !== '"') {
+            return {
+              error: `Incomplete String at line ${line}:${pos}!`
+            };
+          }
+          pos++
+          tokens.push({
+            type: "string",
+            value: res
+          })
+        } 
+        else if (varChars.includes(currentChar)) {
+          let res = currentChar
+          pos++
+          while (varChars.includes(this.codes[pos]) && pos < length) {
+            res += this.codes[pos]
+            pos++
+          }
+          if (!BUILT_IN_KEYWORDS.includes(res)) {
+            return {
+                error: `NKPL Error:- Unexpected token ${res}. ${res} is not defined!`
+              }
+          }
+          tokens.push({
+            type: BUILT_IN_KEYWORDS.includes(res) ? "keyword" : "keyword_custom",
+            value: res
+          })
+        }else if (currentChar === '='){
+          pos++
+          column++
+          tokens.push({
+            type: "operator",
+            value: "eq"
+          })
+        } else {
+          return {
+            error: `Unexpected character ${this.codes[pos]} at line ${line}:${pos}`
+          }
+        }
+      }
+      return {
+        error: false,
+        tokens
+      }
+    }
+    
+    compile() {
+      const {
+        tokens,
+        error
+      } = this.tokenize()
+      if (error) {
+        return document.getElementById(this.resultWriter).innerHTML = `<span class="error">${error}`;
+      }
+      let localSystemVariables = [];
+      this.parse(tokens);
+      }
+      parse(tokens) {
+            const nLength = tokens.length;
+            let position = 0;
+            const vars = {}
+            while (position < nLength) {
+               const token = tokens[position];
+               if(token.type === "keyword" && token.value === "write") {
+                let isVar = tokens[position + 1].type === "keyword_custom";
+                 const valueIsString = tokens[position + 1].type === "string";
+                 if(!valueIsString && !isVar) {
+                   if(!token[position + 1]) {
+                    document.getElementById(this.resultWriter).innerHTML = "";
+                    return document.getElementById(this.resultWriter).innerHTML = `<span class="error">Unexpected end of line! write method expects string and variables only!</span>`;
+                   }
+                   document.getElementById(this.resultWriter).innerHTML = "";
+                   return document.getElementById(this.resultWriter).innerHTML = `<span class="error">Unexpected token ${tokens[position + 1].type}</span>`;
+                 }
+                 if(isVar) {
+                    if(!tokens[position + 1].value in vars) {
+                        document.getElementById(this.resultWriter).innerHTML = "";
+                      return document.getElementById(this.resultWriter).innerHTML = `<span class="error">NKPL Variable Error: The requested variable ${tokens[position + 1].value} is not defined!</span>`
+                    }
+                    document.getElementById(this.resultWriter).innerHTML = vars[tokens[position + 1].value];
+                 }else{
+    
+                 }
+                 if(tokens[position + 2] === undefined) {
+                    return document.getElementById(this.resultWriter).innerHTML = "<span class='error'>Unexpected end of line! Expected semicolon ';'</span>"
+                 }else if(!tokens[position + 2] === ";") {
+                    return document.getElementById(this.resultWriter).innerHTML = "<span class='error'>Unexpected end of line! Expected semicolon ';'</span>"
+                 }
+                 if(String(document.getElementById(this.resultWriter).innerHTML).length != 0) {
+                    document.getElementById(this.resultWriter).innerHTML += `<br>${tokens[position + 1].value}`
+                 }else{
+                    document.getElementById(this.resultWriter).innerHTML += `${tokens[position + 1].value}`
+                 }
+                           
+                 position += 2
+               }else if(token.type === "keyword" && token.value === "vary") {
+                 const isCustomKeyWord = tokens[position + 1] && tokens[position + 1].type === "keyword_custom";
+                 if(!isCustomKeyWord) {
+                  if(!tokens[position + 1]) {
+                    return console.log("Unexpected end of line! Expected a variable name!");
+                  }
+                  return console.log(`Unexpected token ${tokens[position + 1].type}! Expected a variable name`)
+                 }
+                 const varyName = tokens[position + 1].value;
+                 const isEqualSign = tokens[position + 2] && tokens[position + 2].type === "operator" && tokens[position + 2].value === "eq";
+                 if(!isEqualSign) {
+                  if(!tokens[position + 2]) {
+                    return console.log("Unexpected end of line, expected '=' sign after variable name!")
+                  }
+                  return console.log(`Unexpected token ${tokens[position + 2].type}! expected '=' sign after variable name!`)
+                 }
+  
+                 const isString = tokens[position + 3] && tokens[position + 3].type === "string"; 
+                 if(!isString) {
+                  if(!tokens[position + 3]) {
+                    return console.log("Unexpected end of line! Expected String!");
+                  }
+                  return console.log(`Unexpected token ${tokens[position + 3].type}! Expected String!`)
+                 }
+              if(varyName in vars) {
+                return console.log(`NKPL Variable Error:- Variable ${varyName} already exists!`);
+              }
+              vars[varyName] = tokens[position + 3].value;
+              console.log(vars[0]);
+              position+= 4;
+               }
+               position++
+            }
+      }
+    }
+    WebArtino.byId("runTheCodeEditor").onclick = function() {
+   const codes = String(WebArtino.byId("mainCodeEditor").value);
+   const mainCodeEditor = WebArtino.byId("editorOutput");
+   var modal = document.getElementById("outputBox");
+var span = document.getElementsByClassName("close")[0];
+  modal.style.display = "block";
+  new nkplCompiler(codes, "editorOutput").compile();
+span.onclick = function() {
+  closeOutputBox();
+}
+function closeOutputBox() {
+  modal.style.display = "none";
+  mainCodeEditor.innerHTML = "";
+}
+};
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>

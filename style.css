@@ -51,6 +51,11 @@ html {
     font-size: 20px;
     color: #535353;
 }
+#resSdn {
+width: 100%;
+height: auto;
+position: relative;
+}
 .features {
     outline: none;
     border: none;
@@ -259,4 +264,57 @@ footer {
       @keyframes fadeIn {
         from {opacity: 0} 
         to {opacity: 1}
+      }
+
+      .sidebar {
+        margin: 0;
+        padding: 0;
+        width: 20%;
+        background-color: #000000;
+        position: fixed;
+        height: 100%;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 19.5px;
+        overflow: auto;
+      }
+      
+      .sidebar a {
+        display: block;
+        color: rgb(255, 255, 255);
+        padding: 16px;
+        text-decoration: none;
+      }
+       
+      .sidebar a.active {
+        background-color: #ff0077;
+        color: white;
+      }
+      
+      .sidebar a:hover:not(.active) {
+        background-color: #555;
+        color: white;
+      }
+      
+      div.content {
+        margin-left: 20%;
+        padding: 1px 16px;
+        height: 1000px;
+      }
+      
+      @media screen and (max-width: 992px) {
+        .sidebar {
+            display: none;
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+        .sidebar a {float: left;}
+        div.content {margin-left: 0;}
+      }
+      
+      @media screen and (max-width: 400px) {
+        .sidebar a {
+          text-align: center;
+          float: none;
+        }
       }

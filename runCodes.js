@@ -67,8 +67,9 @@ export class nkplCompiler {
             pos++
           }
           if (!BUILT_IN_KEYWORDS.includes(res)) {
-            pos++
-            column++
+            return {
+                error: `NKPL Error:- Unexpected token ${res}. ${res} is not defined!`
+              }
           }
           tokens.push({
             type: BUILT_IN_KEYWORDS.includes(res) ? "keyword" : "keyword_custom",
@@ -130,7 +131,17 @@ export class nkplCompiler {
                  }else{
     
                  }
-                 document.getElementById(this.resultWriter).innerHTML = tokens[position + 1].value;
+                 if(tokens[position + 2] === undefined) {
+                    return document.getElementById(this.resultWriter).innerHTML = "<span class='error'>Unexpected end of line! Expected semicolon ';'</span>"
+                 }else if(!tokens[position + 2] === ";") {
+                    return document.getElementById(this.resultWriter).innerHTML = "<span class='error'>Unexpected end of line! Expected semicolon ';'</span>"
+                 }
+                 if(String(document.getElementById(this.resultWriter).innerHTML).length != 0) {
+                    document.getElementById(this.resultWriter).innerHTML += `<br>${tokens[position + 1].value}`
+                 }else{
+                    document.getElementById(this.resultWriter).innerHTML += `${tokens[position + 1].value}`
+                 }
+                           
                  position += 2
                }else if(token.type === "keyword" && token.value === "vary") {
                  const isCustomKeyWord = tokens[position + 1] && tokens[position + 1].type === "keyword_custom";
@@ -141,7 +152,6 @@ export class nkplCompiler {
                   return console.log(`Unexpected token ${tokens[position + 1].type}! Expected a variable name`)
                  }
                  const varyName = tokens[position + 1].value;
-                 getBuidlsd();
                  const isEqualSign = tokens[position + 2] && tokens[position + 2].type === "operator" && tokens[position + 2].value === "eq";
                  if(!isEqualSign) {
                   if(!tokens[position + 2]) {

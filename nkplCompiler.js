@@ -1,4 +1,4 @@
-export class nkplCompiler {
+class nkplCompiler {
     constructor(codes) {
       this.codes = codes
     }

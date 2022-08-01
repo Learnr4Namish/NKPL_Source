@@ -10,7 +10,7 @@ export class nkplCompiler {
       let line = 1;
       let column = 0;
       let tokens = []
-      const BUILT_IN_KEYWORDS = ["write", "find", "vary", "import", "export", "modify", "Write", "Find", "Vary", "Import", "Export", "Modify", "showNkplDetails()", "sqrt", "Sqrt", "cbrt", "Cbrt", "printS", "PrintS", "#", "for", "For", "equals", "getVar", "getVary", ";", "function", "{", "}"];
+      const BUILT_IN_KEYWORDS = ["write", "find", "vary", "import", "export", "modify", "Write", "Find", "Vary", "Import", "Export", "Modify", "showNkplDetails()", "sqrt", "Sqrt", "cbrt", "Cbrt", "printS", "PrintS", "#", "for", "For", "equals", "getVar", "getVary", ";", "function", "{", "}", "/"];
       const varChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_()#N;{}'
       while (pos < length) {
         let currentChar = this.codes[pos]

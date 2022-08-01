@@ -29,6 +29,16 @@ html {
     border-radius: 360px;
     width: 10em;
 }
+.namishButton:hover {
+    background-color: #d30063;
+    color: white;
+    outline: none;
+    border: none;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 360px;
+    width: 10em;
+}
 .namishButton2 {
     color: rgb(0, 0, 0);
     background-color: transparent;
@@ -41,6 +51,18 @@ html {
     font-size: 20px;
     border-radius: 360px;
     width: 10em;
+    transition: 0.45s;
+}
+.namishButton2:hover {
+    background-color: #ff0077;
+    color: white;
+    outline: none;
+    border: none;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 360px;
+    width: 10em;
+    transition: 0.45s;
 }
 .text-50 {
     margin-left: 8px;
@@ -93,6 +115,7 @@ position: relative;
 }
 .numbering {
     color: rgb(0, 229, 255);
+    user-select: none;
 }
 .error {
     color: red;
@@ -171,7 +194,8 @@ footer {
         .button-group {
             margin-top: 15px;
             margin-left: 5px;
-            display: block;
+            display: flex;
+            justify-content: space-between;
         }
       }
       .editor {
@@ -276,6 +300,7 @@ footer {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-size: 19.5px;
         overflow: auto;
+        transition: 0.45s;
       }
       
       .sidebar a {
@@ -288,9 +313,11 @@ footer {
       .sidebar a.active {
         background-color: #ff0077;
         color: white;
+        transition: 0.45s;
       }
       
       .sidebar a:hover:not(.active) {
+        transition: 0.45s;
         background-color: #555;
         color: white;
       }
@@ -318,3 +345,7 @@ footer {
           float: none;
         }
       }
+#langName {
+    background-color: #ffffff;
+    color: #000;
+}

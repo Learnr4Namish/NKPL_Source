@@ -226,7 +226,30 @@
               vars[varyName] = tokens[position + 3].value;
               console.log(vars[0]);
               position+= 4;
-               }
+               }else if(token.type === "keyword" && token.value === "find" || token.type === "keyword" && token.value === "Find") {
+                const isString = tokens[position + 1].type === "string"
+                if(!isString) {
+                 if(!tokens[position + 1]) {
+                   return document.getElementById(this.resultWriter).innerHTML = `<span class="error">NKPL Unexpected error: Find/find method only accepts only strings! The requested token ${tokens[position + 1].value} is not of string datatype!</span>`;             
+                 }
+                 return document.getElementById(this.resultWriter).innerHTML = `<span class="error">NKPL Unexpected error: Find/find method only accepts only strings! The requested token ${tokens[position + 1].value} is not of string datatype!</span>`;
+                 }
+                 
+                 if(tokens[position + 2] === undefined) {
+                  return document.getElementById(this.resultWriter).innerHTML = "<span class='error'>Unexpected end of line! Expected semicolon ';'</span>"
+                }else if(!tokens[position + 2] === ";") {
+                  return document.getElementById(this.resultWriter).innerHTML = "<span class='error'>Unexpected end of line! Expected semicolon ';'</span>"
+                }else{
+                 try {
+                   const targetAnswer = eval(String(tokens[position + 1].value))
+                   document.getElementById(this.resultWriter).innerHTML = targetAnswer;
+                 }
+                 catch(error) {
+                   return console.log(error)
+                 }
+                  position += 2
+                }
+          }
                position++
             }
       }

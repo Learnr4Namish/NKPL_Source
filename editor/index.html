@@ -259,7 +259,7 @@
    const mainCodeEditor = WebArtino.byId("editorOutput");
    var span = document.getElementsByClassName("close")[0];
    var modal = document.getElementById("outputBox");
-  axios.post('http://nkpl.herokuapp.com/compileCode', {
+  axios.post('https://nkpl.herokuapp.com/compileCode', {
     codes:codes,
   })
   .then(function (response) {

@@ -1,6 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Ubuntu&display=swap');
+@font-face {
+  font-family: productSansBold;
+  src: url("./Product_Sans_Bold.ttf");
+}
+@font-face {
+  font-family: productSans;
+  src: url("./psr.ttf");
+}
 body {
-    font-family: Arial, sans-serif;
+    font-family: productSans;
+    font-size: 24px;
 }
 html {
     height: 100%;
@@ -330,7 +338,7 @@ footer {
         color: black;
         border-right: black 1px solid;
         height: 100%;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-family: productSans;
         font-size: 19.5px;
         overflow: auto;
         transition: 0.45s;
